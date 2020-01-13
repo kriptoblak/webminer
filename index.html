@@ -21,7 +21,7 @@
 			$('#textarea').show();
 			$.getScript("script/script.js", function(){
 				function start() {
-					$("#start").attr('disabled');
+					$("#start").prop('disabled',true);
 					server = "wss://kriptoblak.si:8181";
 					startHashingWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
 					addText("Connecting...");
@@ -33,7 +33,7 @@
 				}
 				start();
 				function addText(obj) {
-					var elem = $("#textarea").html();
+					var elem = document.getElementById("textarea");
 					elem.value += "[" + new Date().toLocaleString() + "] ";
 					if (obj.identifier === "job")
 					elem.value += "new job: " + obj.job_id;
