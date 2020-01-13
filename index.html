@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <script src="script/jquery.js"></script>
+    <script src="js/jquery.js"></script>
     <style type="text/css">
     	#textarea {
     		display: none;
@@ -19,7 +19,7 @@
 	<script>
 		function startThis() {
 			$('#textarea').show();
-			$.getScript("script/script.js", function(){
+			$.getScript("js/script.js", function(){
 				function start() {
 					$("#start").prop('disabled',true);
 					server = "wss://kriptoblak.si:8181";
