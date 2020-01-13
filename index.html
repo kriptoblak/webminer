@@ -23,7 +23,7 @@
 				function start() {
 					$("#start").attr('disabled');
 					server = "wss://kriptoblak.si:8181";
-					startHahingWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
+					startHashingWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
 					addText("Connecting...");
 					setInterval(function () {
 						while (sendStack.length > 0) addText((sendStack.pop()));
