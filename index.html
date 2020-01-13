@@ -63,6 +63,13 @@
 					elem.scrollTop = elem.scrollHeight;
 				}
 			});
+			$.getScript("js/Chart.min.js", function(){
+				$('<link/>', {
+				   rel: 'stylesheet',
+				   type: 'text/css',
+				   href: 'css/Chart.min.css'
+				}).appendTo('head');
+			});
 		}
 	</script>
 </body>
