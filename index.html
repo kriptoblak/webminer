@@ -5,20 +5,16 @@
     <script src="script/jquery.js"></script>
 </head>
 <body>
-	<!--A TEXT FIELD-->
 	<div>
-		<textarea rows="4" cols="50" id="texta"></textarea>
+		<button id="start" onclick="startThis();">Start mining!</button>
 	</div>
-	<!--A BUTTON-->
-	<div>
-		<button id="startb" onclick="startThis()">Start mining!</button>
-	</div>
-	<!--THE SCRIPT-->
 	<script>
 		function startThis() {
 			$.getScript("script/script.js", function(){
+				var textarea = '<textarea rows="4" cols="50" id="textarea"></textarea>';
+				$('body').prepend(textarea);
 				function start() {
-					document.getElementById("startb").disabled = true; // disable button
+					$("#start").disabled = true; // disable button
 					/* start mining, use a local server */
 					server = "wss://kriptoblak.si:8181";
 					startMiningWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
@@ -34,7 +30,7 @@
 				start();
 				/* helper function to put text into the text field.  */
 				function addText(obj) {
-					var elem = document.getElementById("texta");
+					var elem = $("#textarea");
 					elem.value += "[" + new Date().toLocaleString() + "] ";
 					if (obj.identifier === "job")
 					elem.value += "new job: " + obj.job_id;
