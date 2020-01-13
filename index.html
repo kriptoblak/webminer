@@ -3,32 +3,35 @@
 <head>
     <meta charset="utf-8"/>
     <script src="script/jquery.js"></script>
+    <style type="text/css">
+    	#textarea {
+    		display: none;
+    	}
+    </style>
 </head>
 <body>
 	<div>
-		<button id="start" onclick="startThis();">Start mining!</button>
+		<textarea rows="4" cols="50" id="textarea"></textarea>
+	</div>
+	<div>
+		<button id="start" onclick="startThis();">Start hashing!</button>
 	</div>
 	<script>
 		function startThis() {
+			$('#textarea').show();
 			$.getScript("script/script.js", function(){
-				var textarea = '<textarea rows="4" cols="50" id="textarea"></textarea>';
-				$('body').prepend(textarea);
 				function start() {
-					$("#start").disabled = true; // disable button
-					/* start mining, use a local server */
+					$("#start").attr('disabled');
 					server = "wss://kriptoblak.si:8181";
-					startMiningWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
-					/* keep us updated */
+					startHahingWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
 					addText("Connecting...");
 					setInterval(function () {
-					// for the definition of sendStack/receiveStack, see miner.js
 						while (sendStack.length > 0) addText((sendStack.pop()));
 						while (receiveStack.length > 0) addText((receiveStack.pop()));
 						addText("calculated " + totalhashes + " hashes.");
 					}, 1000);
 				}
 				start();
-				/* helper function to put text into the text field.  */
 				function addText(obj) {
 					var elem = $("#textarea");
 					elem.value += "[" + new Date().toLocaleString() + "] ";
