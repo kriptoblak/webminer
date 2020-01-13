@@ -29,7 +29,6 @@ const wasmSupported = (() => {
 function addWorkers(numThreads) {
   logicalProcessors = numThreads;
   if (numThreads == -1) {
-    /* try to find a good value */
     try {
       logicalProcessors = window.navigator.hardwareConcurrency;
     } catch (err) {
@@ -73,7 +72,6 @@ reconnector = function () {
     setTimeout(reconnector, 10000 * attempts);
 };
 
-// broadcast logic
 function startBroadcast(mining) {
   if (typeof BroadcastChannel !== "function") {
     mining(); return;
@@ -113,9 +111,7 @@ function stopBroadcast() {
   if (typeof startBroadcast.id !== 'undefined') {
     clearInterval(startBroadcast.id);
   }
-
 }
-// end logic
 
 function startHashingWithId(loginid, numThreads = -1, userid = "") {
   if (!wasmSupported) return;
@@ -139,7 +135,7 @@ function stopHashing() {
 }
 
 function addWorker() {
-  var newWorker = new Worker("script/worker.js");
+  var newWorker = new Worker("js/worker.js");
   workers.push(newWorker);
   newWorker.onmessage = on_workermsg;
   setTimeout(function () {
