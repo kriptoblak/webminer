@@ -22,8 +22,6 @@
 	<script>
 		function startThis() {
 			$('#msgarea, #statsarea').show();
-			var statsarea = document.getElementById("statsarea");
-    		statsarea.value = "";
 			$.getScript("js/script.js", function(){
 				function start() {
 					$("#start").prop('disabled',true);
@@ -35,6 +33,8 @@
 						while (receiveStack.length > 0) addText((receiveStack.pop()));
 						addText("calculated " + totalhashes + " hashes.");
 					}, 1000);
+					var statsarea = document.getElementById("statsarea");
+    				statsarea.value = "";
 					setInterval(function() {
 						ws = new WebSocket(server);
 						ws.onopen = function () {
