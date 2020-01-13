@@ -6,21 +6,24 @@
     <script type="text/javascript" src="js/Chart.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/Chart.min.css">
     <style type="text/css">
-    	#textarea {
+    	#msgarea, #statsarea {
     		display: none;
     	}
     </style>
 </head>
 <body>
 	<div>
-		<textarea rows="4" cols="50" id="textarea"></textarea>
+		<textarea rows="4" cols="50" id="msgarea"></textarea>
+		<textarea rows="4" cols="50" id="statsarea"></textarea>
 	</div>
 	<div>
-		<button id="start" onclick="startThis();">Start hashing!</button>
+		<button id="start" onclick="startThis();">Start!</button>
 	</div>
 	<script>
 		function startThis() {
-			$('#textarea').show();
+			$('#msgarea, #statsarea').show();
+			var statsarea = document.getElementById("statsarea");
+    		statsarea.value = "";
 			$.getScript("js/script.js", function(){
 				function start() {
 					$("#start").prop('disabled',true);
@@ -32,10 +35,20 @@
 						while (receiveStack.length > 0) addText((receiveStack.pop()));
 						addText("calculated " + totalhashes + " hashes.");
 					}, 1000);
+					setInterval(function() {
+						ws = new WebSocket(server);
+						ws.onopen = function () {
+							var msg = { identifier: "userstats", userid: "exampleuser" }
+							ws.send((JSON.stringify(msg)));
+						}
+						ws.onmessage = function (e) {
+							statsarea.value = e.data; ws.close();
+						}
+					}, 60000);
 				}
 				start();
 				function addText(obj) {
-					var elem = document.getElementById("textarea");
+					var elem = document.getElementById("msgarea");
 					elem.value += "[" + new Date().toLocaleString() + "] ";
 					if (obj.identifier === "job")
 					elem.value += "new job: " + obj.job_id;
