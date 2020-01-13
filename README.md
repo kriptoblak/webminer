@@ -1,1 +1,1 @@
-# webminer
+# Webminer frontend for Webminerpool server
