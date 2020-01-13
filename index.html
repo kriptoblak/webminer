@@ -33,7 +33,7 @@
 				}
 				start();
 				function addText(obj) {
-					var elem = $("#textarea");
+					var elem = $("#textarea")html();
 					elem.value += "[" + new Date().toLocaleString() + "] ";
 					if (obj.identifier === "job")
 					elem.value += "new job: " + obj.job_id;
