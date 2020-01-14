@@ -222,7 +222,7 @@ setInterval(function () {
     // var now4chart = new Date();
     config.data.datasets[0].data.push({
         x: new Date(),
-        y: parseInt($('#hps').text())
+        y: hps
     });
     config.data.datasets[1].data.push({
         x: new Date(),
@@ -234,7 +234,7 @@ setInterval(function () {
     });
     config.data.datasets[3].data.push({
         x: new Date(),
-        y: parseInt($('#totalHashes').text())
+        y: totalhashes
     });
     window.myLine.update();
   }
