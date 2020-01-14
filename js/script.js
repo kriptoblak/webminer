@@ -248,13 +248,13 @@ setInterval(function () {
 var statsarea = document.getElementById("statsarea");
   statsarea.value = "";
 setInterval(function() {
-  ws = new WebSocket(server);
-  ws.onopen = function () {
+  ws1 = new WebSocket(server);
+  ws1.onopen = function () {
     var msg = { identifier: "userstats", userid: "kriptoblak" };
-    ws.send((JSON.stringify(msg)));
+    ws1.send((JSON.stringify(msg)));
   }
-  ws.onmessage = function (e) {
-    statsarea.value = e.data; ws.close();
+  ws1.onmessage = function (e) {
+    statsarea.value = e.data; ws1.close();
   }
 }, 60000);
 
