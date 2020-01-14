@@ -155,32 +155,32 @@ document.addEventListener("DOMContentLoaded", function(event) {
             gaugeWidthScale: 0.6
         });
 
-        document.getElementById('g1_refresh').addEventListener('click', function() {
-            g1.refresh(getRandomInt(0, 100));
-        });
+        // document.getElementById('g1_refresh').addEventListener('click', function() {
+        //     g1.refresh(getRandomInt(0, 100));
+        // });
 
-        document.getElementById('g1_setmax100').addEventListener('click', function() {
-            g1.refresh(g1.originalValue, 100);
-            g1.txtTitle.attr({
-                "text": "Max is 100."
-            });
-        });
+        // document.getElementById('g1_setmax100').addEventListener('click', function() {
+        //     g1.refresh(g1.originalValue, 100);
+        //     g1.txtTitle.attr({
+        //         "text": "Max is 100."
+        //     });
+        // });
 
-        document.getElementById('g1_setmax200').addEventListener('click', function() {
-            g1.refresh(g1.originalValue, 200);
-            g1.txtTitle.attr({
-                "text": "Whoops, max jumped to 200."
-            });
-            return false;
-        });
+        // document.getElementById('g1_setmax200').addEventListener('click', function() {
+        //     g1.refresh(g1.originalValue, 200);
+        //     g1.txtTitle.attr({
+        //         "text": "Whoops, max jumped to 200."
+        //     });
+        //     return false;
+        // });
 
-        document.getElementById('g1_setmax400').addEventListener('click', function() {
-            g1.refresh(g1.originalValue, 400);
-            g1.txtTitle.attr({
-                "text": "Blimey, max blasted to 400!"
-            });
-            return false;
-        });
+        // document.getElementById('g1_setmax400').addEventListener('click', function() {
+        //     g1.refresh(g1.originalValue, 400);
+        //     g1.txtTitle.attr({
+        //         "text": "Blimey, max blasted to 400!"
+        //     });
+        //     return false;
+        // });
 
     });
 
