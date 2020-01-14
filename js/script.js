@@ -200,65 +200,6 @@ function on_workermsg(e) {
 $("#start").prop('disabled',true);
 $('#msgarea, #statsarea').show();
 
-var color = Chart.helpers.color;
-var config = {
-  type: 'line',
-  data: {
-    datasets: [{
-      label: 'Dataset with string point data',
-      backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-      borderColor: window.chartColors.red,
-      fill: false,
-      data: [{
-        x: 0,
-        y: 0
-      }],
-    }, {
-      label: 'Dataset with date object point data',
-      backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-      borderColor: window.chartColors.blue,
-      fill: false,
-      data: [{
-        x: 0,
-        y: 0
-      }]
-    }]
-  },
-  options: {
-    responsive: true,
-    title: {
-      display: true,
-      text: 'Hashing Chart'
-    },
-    scales: {
-      xAxes: [{
-        type: 'time',
-        display: true,
-        scaleLabel: {
-          display: true,
-          labelString: 'Time'
-        },
-        ticks: {
-          major: {
-            fontStyle: 'bold',
-            fontColor: '#FF0000'
-          }
-        }
-      }],
-      yAxes: [{
-        display: true,
-        scaleLabel: {
-          display: true,
-          labelString: 'value'
-        }
-      }]
-    }
-  }
-};
-
-var ctx = document.getElementById('canvas').getContext('2d');
-window.myLine = new Chart(ctx, config);
-
 startHashingWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
 addText("Connecting...");
 setInterval(function () {
@@ -275,19 +216,24 @@ setInterval(function () {
         config.data.datasets[0].data.shift();
         config.data.datasets[1].data.shift();
         config.data.datasets[2].data.shift();
+        config.data.datasets[3].data.shift();
     }
     var now4chart = new Date();
     config.data.datasets[0].data.push({
         x: now4chart,
-        y: totalhashes
+        y: parseInt($('#hps').text())
     });
     config.data.datasets[1].data.push({
         x: now4chart,
-        y: parseInt($('#accepted').text())
+        y: parseInt($('#solved').text())
     });
     config.data.datasets[2].data.push({
         x: now4chart,
-        y: hps
+        y: parseInt($('#accepted').text())
+    });
+    config.data.datasets[3].data.push({
+        x: now4chart,
+        y: parseInt($('#totalHashes').text())
     });
     window.myLine.update();
   }
