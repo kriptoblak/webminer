@@ -10,7 +10,7 @@
     		padding: 0;
     		margin: 0;
     	}
-    	#msgarea, #statsarea {
+    	#msgarea, #statsarea, #canvas {
 			display: none;
 		}
     </style>
@@ -21,7 +21,16 @@
 		<textarea rows="4" cols="50" id="statsarea"></textarea>
 	</div>
 	<div>
+		<canvas id="canvas"></canvas>
+	</div>
+	<div>
+		<span id="threads"></span><br>
 		<button id="start" onclick="startThis();">Start!</button>
+		<span id="hps"></span>H/s<br>
+		<span id="totalHashes"></span>H<br>
+		<span id="solved"></span> &cool;<br>
+		<span id="accepted"></span> &check;<br>
+
 	</div>
 	<script>
 		function startThis() {
