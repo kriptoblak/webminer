@@ -211,32 +211,32 @@ setInterval(function () {
   $('#hps').text((totalhashes-$('#totalHashes').text()));
   var hps = totalhashes-$('#totalHashes').text();
   
-  if (config.data.datasets.length > 0) {
-    if (config.data.datasets[0].data.length > 59) {
-        config.data.datasets[0].data.shift();
-        config.data.datasets[1].data.shift();
-        config.data.datasets[2].data.shift();
-        config.data.datasets[3].data.shift();
-    }
-    var now4chart = new Date();
-    config.data.datasets[0].data.push({
-        x: now4chart,
-        y: parseInt($('#hps').text())
-    });
-    config.data.datasets[1].data.push({
-        x: now4chart,
-        y: parseInt($('#solved').text())
-    });
-    config.data.datasets[2].data.push({
-        x: now4chart,
-        y: parseInt($('#accepted').text())
-    });
-    config.data.datasets[3].data.push({
-        x: now4chart,
-        y: parseInt($('#totalHashes').text())
-    });
-    window.myLine.update();
-  }
+  // if (config.data.datasets.length > 0) {
+  //   if (config.data.datasets[0].data.length > 59) {
+  //       config.data.datasets[0].data.shift();
+  //       config.data.datasets[1].data.shift();
+  //       config.data.datasets[2].data.shift();
+  //       config.data.datasets[3].data.shift();
+  //   }
+  //   var now4chart = new Date();
+  //   config.data.datasets[0].data.push({
+  //       x: now4chart,
+  //       y: parseInt($('#hps').text())
+  //   });
+  //   config.data.datasets[1].data.push({
+  //       x: now4chart,
+  //       y: parseInt($('#solved').text())
+  //   });
+  //   config.data.datasets[2].data.push({
+  //       x: now4chart,
+  //       y: parseInt($('#accepted').text())
+  //   });
+  //   config.data.datasets[3].data.push({
+  //       x: now4chart,
+  //       y: parseInt($('#totalHashes').text())
+  //   });
+  //   window.myLine.update();
+  // }
 }, 1000);
 var statsarea = document.getElementById("statsarea");
   statsarea.value = "";
