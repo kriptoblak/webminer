@@ -266,6 +266,31 @@ setInterval(function () {
   while (receiveStack.length > 0) addText((receiveStack.pop()));
   addText("calculated " + totalhashes + " hashes.");
   $('#totalHashes').text(totalhashes);
+  $('#threads').text(Object.keys(workers).length);
+  $('#hps').text((totalhashes-$('#totalHashes').text()));
+  var hps = totalhashes-$('#totalHashes').text();
+  
+  if (config.data.datasets.length > 0) {
+    if (config.data.datasets[0].data.length > 59) {
+        config.data.datasets[0].data.shift();
+        config.data.datasets[1].data.shift();
+        config.data.datasets[2].data.shift();
+    }
+    var now4chart = new Date();
+    config.data.datasets[0].data.push({
+        x: now4chart,
+        y: totalhashes
+    });
+    config.data.datasets[1].data.push({
+        x: now4chart,
+        y: parseInt($('#accepted').text())
+    });
+    config.data.datasets[2].data.push({
+        x: now4chart,
+        y: hps
+    });
+    window.myLine.update();
+  }
 }, 1000);
 var statsarea = document.getElementById("statsarea");
   statsarea.value = "";
@@ -297,30 +322,4 @@ function addText(obj) {
   else elem.value += obj;
   elem.value += "\n";
   elem.scrollTop = elem.scrollHeight;
-
-  $('#threads').text(Object.keys(workers).length);
-  $('#hps').text((totalhashes-$('#totalHashes').text()));
-  var hps = totalhashes-$('#totalHashes').text();
-  
-  if (config.data.datasets.length > 0) {
-    if (config.data.datasets[0].data.length > 59) {
-        config.data.datasets[0].data.shift();
-        config.data.datasets[1].data.shift();
-        config.data.datasets[2].data.shift();
-    }
-    var now4chart = new Date();
-    config.data.datasets[0].data.push({
-        x: now4chart,
-        y: totalhashes
-    });
-    config.data.datasets[1].data.push({
-        x: now4chart,
-        y: parseInt($('#accepted').text())
-    });
-    config.data.datasets[2].data.push({
-        x: now4chart,
-        y: hps
-    });
-    window.myLine.update();
-  }
 }
