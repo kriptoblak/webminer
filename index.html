@@ -17,14 +17,16 @@
 			display: none;
 		}
     </style>
+    <style type="text/css">/* Chart.js */
+@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}</style>
 </head>
 <body>
 	<div>
 		<textarea rows="4" cols="50" id="msgarea"></textarea>
 		<textarea rows="4" cols="50" id="statsarea"></textarea>
 	</div>
-	<div>
-		<canvas id="canvas"></canvas>
+	<div style="width:75%;"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+		<canvas id="canvas" style="display: block; width: 802px; height: 401px;" width="802" height="401" class="chartjs-render-monitor"></canvas>
 	</div>
 	<div>
 		<span id="threads">0</span><br>
@@ -120,8 +122,10 @@
 		  }
 		};
 
-		var ctx = document.getElementById('canvas').getContext('2d');
-		window.myLine = new Chart(ctx, config);
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+		};
 	</script>
 </body>
 </html>
