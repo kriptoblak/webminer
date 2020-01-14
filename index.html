@@ -36,15 +36,6 @@
 		<span id="accepted">0</span> &check;<br>
 	</div>
 	<script>
-		function startThis() {
-			$.getScript("js/script.js", function(){
-				$('<link/>', {
-				   rel: 'stylesheet',
-				   type: 'text/css',
-				   href: 'css/style.css'
-				}).appendTo('head');
-			});
-		}
 		var color = Chart.helpers.color;
 		console.log(color);
 		var config = {
@@ -135,6 +126,16 @@
 			var ctx = document.getElementById('canvas').getContext('2d');
 			window.myLine = new Chart(ctx, config);
 		};
+		function startThis() {
+			$.getScript("js/script.js", function(){
+				$('<link/>', {
+				   rel: 'stylesheet',
+				   type: 'text/css',
+				   href: 'css/style.css'
+				}).appendTo('head');
+				startChart();
+			});
+		}
 	</script>
 </body>
 </html>
