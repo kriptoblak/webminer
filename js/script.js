@@ -46,8 +46,6 @@ var openWebSocket = function () {
   }
   var splitted = server.split(";")
   var chosen = splitted[Math.floor(Math.random() * splitted.length)];
-  console.log(splitted);
-  console.log(chosen);
   ws = new WebSocket(chosen);
   ws.onmessage = on_servermsg;
   ws.onerror = function (event) {
