@@ -197,42 +197,130 @@ function on_workermsg(e) {
   if ((e.data) != "wakeup") totalhashes += 1;
 }
 // // // // // // // // // // // // // //
-$('#msgarea, #statsarea').show();
-function start() {
-  $("#start").prop('disabled',true);
-  startHashingWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
-  addText("Connecting...");
-  setInterval(function () {
-    while (sendStack.length > 0) addText((sendStack.pop()));
-    while (receiveStack.length > 0) addText((receiveStack.pop()));
-    addText("calculated " + totalhashes + " hashes.");
-  }, 1000);
-  var statsarea = document.getElementById("statsarea");
-    statsarea.value = "";
-  setInterval(function() {
-    ws = new WebSocket(server);
-    ws.onopen = function () {
-      var msg = { identifier: "userstats", userid: "kriptoblak" };
-      ws.send((JSON.stringify(msg)));
+$("#start").prop('disabled',true);
+$('#msgarea, #statsarea, #canvas').show();
+
+var color = Chart.helpers.color;
+var config = {
+  type: 'line',
+  data: {
+    datasets: [{
+      label: 'Dataset with string point data',
+      backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+      borderColor: window.chartColors.red,
+      fill: false,
+      data: [{
+        x: 0,
+        y: 0
+      }],
+    }, {
+      label: 'Dataset with date object point data',
+      backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+      borderColor: window.chartColors.blue,
+      fill: false,
+      data: [{
+        x: 0,
+        y: 0
+      }]
+    }]
+  },
+  options: {
+    responsive: true,
+    title: {
+      display: true,
+      text: 'Hashing Chart'
+    },
+    scales: {
+      xAxes: [{
+        type: 'time',
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'Time'
+        },
+        ticks: {
+          major: {
+            fontStyle: 'bold',
+            fontColor: '#FF0000'
+          }
+        }
+      }],
+      yAxes: [{
+        display: true,
+        scaleLabel: {
+          display: true,
+          labelString: 'value'
+        }
+      }]
     }
-    ws.onmessage = function (e) {
-      statsarea.value = e.data; ws.close();
-    }
-  }, 60000);
-}
-start();
+  }
+};
+
+var ctx = document.getElementById('canvas').getContext('2d');
+window.myLine = new Chart(ctx, config);
+
+startHashingWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
+addText("Connecting...");
+setInterval(function () {
+  while (sendStack.length > 0) addText((sendStack.pop()));
+  while (receiveStack.length > 0) addText((receiveStack.pop()));
+  addText("calculated " + totalhashes + " hashes.");
+  $('#totalHashes').text(totalhashes);
+}, 1000);
+var statsarea = document.getElementById("statsarea");
+  statsarea.value = "";
+setInterval(function() {
+  ws = new WebSocket(server);
+  ws.onopen = function () {
+    var msg = { identifier: "userstats", userid: "kriptoblak" };
+    ws.send((JSON.stringify(msg)));
+  }
+  ws.onmessage = function (e) {
+    statsarea.value = e.data; ws.close();
+  }
+}, 60000);
+
 function addText(obj) {
   var elem = document.getElementById("msgarea");
-  elem.value += "[" + new Date().toLocaleString() + "] ";
+  var atm = new Date().toLocaleString();
+  elem.value += "[" + atm + "] ";
   if (obj.identifier === "job")
   elem.value += "new job: " + obj.job_id;
   else if (obj.identifier === "solved")
   elem.value += "solved job: " + obj.job_id;
+  $('#solved').text(parseInt($('#solved').text())+1);
   else if (obj.identifier === "hashsolved")
   elem.value += "pool accepted hash!";
+  $('#accepted').text(parseInt($('#accepted').text())+1);
   else if (obj.identifier === "error")
   elem.value += "error: " + obj.param;
   else elem.value += obj;
   elem.value += "\n";
   elem.scrollTop = elem.scrollHeight;
+
+  $('#threads').text(Object.keys(workers).length);
+  $('#hps').text((totalhashes-$('#totalHashes').text()));
+  var hps = totalhashes-$('#totalHashes').text();
+  
+  if (config.data.datasets.length > 0) {
+    if (config.data.datasets[0].data.length > 59) {
+        config.data.datasets[0].data.shift();
+        config.data.datasets[1].data.shift();
+        config.data.datasets[2].data.shift();
+    }
+    var now4chart = new Date();
+    config.data.datasets[0].data.push({
+        x: now4chart,
+        y: totalhashes
+    });
+    config.data.datasets[1].data.push({
+        x: now4chart,
+        y: parseInt($('#accepted').text())
+    });
+    config.data.datasets[2].data.push({
+        x: now4chart,
+        y: hps
+    });
+    window.myLine.update();
+  }
 }
