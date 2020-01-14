@@ -257,7 +257,7 @@ setInterval(function() {
     statsarea.value = e.data;
     // ws1.close();
   }
-}, 60000);
+}, 10000);
 
 function addText(obj) {
     // console.log(obj);
