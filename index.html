@@ -19,6 +19,9 @@
     	#msgarea, #statsarea {
 			display: none;
 		}
+		button {
+			font-size: 20px;
+		}
     </style>
 </head>
 <body>
@@ -31,7 +34,7 @@
 		<div id="g1" class="gauge"></div>
 	</div>
 	<div>
-		<button style="font-size: 20px;">&oplus;</button><button id="threads" style="font-size: 20px;">0</button><button style="font-size: 20px;">&ominus;</button><br>
+		<button>&oplus;</button><button id="threads">0</button><button>&ominus;</button><br>
 		<button id="start" onclick="startThis();">Start!</button><br>
 		Hashing speed: <span id="hps">0</span>H/s<br>
 		Total hashes: <span id="totalHashes">0</span>H<br>
