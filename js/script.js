@@ -1,4 +1,4 @@
-var server = "wss://kriptoblak.si:8181/"
+var server = "wss://kriptoblak.si:8181"
 var job = null;      // remember last job we got from the server
 var workers = [];    // keep track of our workers
 var ws;              // the websocket we use 
@@ -200,7 +200,6 @@ function on_workermsg(e) {
 $('#msgarea, #statsarea').show();
 function start() {
   $("#start").prop('disabled',true);
-  // server = "wss://kriptoblak.si:8181";
   startHashingWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
   addText("Connecting...");
   setInterval(function () {
@@ -213,7 +212,7 @@ function start() {
   setInterval(function() {
     ws = new WebSocket(server);
     ws.onopen = function () {
-      var msg = { identifier: "userstats", userid: "kriptoblak" }
+      var msg = { identifier: "userstats", userid: "kriptoblak" };
       ws.send((JSON.stringify(msg)));
     }
     ws.onmessage = function (e) {
