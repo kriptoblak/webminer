@@ -244,7 +244,7 @@ setInterval(function () {
 var statsarea = document.getElementById("statsarea");
   statsarea.value = "";
 setInterval(function() {
-  ws = new WebSocket(server);
+  // ws = new WebSocket(server);
   ws.onopen = function () {
     var msg = { identifier: "userstats", userid: "kriptoblak" };
     ws.send((JSON.stringify(msg)));
