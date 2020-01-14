@@ -22,22 +22,34 @@
     </style>
 </head>
 <body>
-	<div>
-		<canvas id="canvas"></canvas>
+	<div id="content"></div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+
+		});
+
+		function startThis() {
+			var html = `<canvas id="canvas"></canvas>
 		<div id="g1" class="gauge"></div>
-	</div>
-	<div>
 		<button onclick="removeWorker();">&ominus;</button><button id="threads" disabled>0</button><button onclick="addWorker();">&oplus;</button><br>
 		<button id="start" onclick="startThis();">Start!</button><br>
 		Hashing speed: <span id="hps">0</span>H/s<br>
 		Hashes this session: <span id="totalHashes">0</span>H<br>
 		Total hashes for current id: <span id="totalpoolhashes">0</span>H<br>
 		&#9752; <span id="solved">0</span>H<br>
-		&#9745; <span id="accepted">0</span>H<br>
-	</div>
-	<script>
-		document.addEventListener("DOMContentLoaded", function(event) {
-		    g1 = new JustGage({
+		&#9745; <span id="accepted">0</span>H<br>`;
+			$('#content').html(html);
+			$.getScript("js/script.js", function(){
+				$('<link/>', {
+				   rel: 'stylesheet',
+				   type: 'text/css',
+				   href: 'css/style.css'
+				}).appendTo('head');
+				var ctx = document.getElementById('canvas').getContext('2d');
+				window.myLine = new Chart(ctx, config);
+			});
+
+			g1 = new JustGage({
 		        id: "g1",
 		        title: "",
 		        label: "H/s",
@@ -141,18 +153,6 @@
 	                }
 	            }
 			};
-		});
-
-		function startThis() {
-			$.getScript("js/script.js", function(){
-				$('<link/>', {
-				   rel: 'stylesheet',
-				   type: 'text/css',
-				   href: 'css/style.css'
-				}).appendTo('head');
-				var ctx = document.getElementById('canvas').getContext('2d');
-				window.myLine = new Chart(ctx, config);
-			});
 		}
 	</script>
 </body>
