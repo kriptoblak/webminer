@@ -36,7 +36,7 @@
 		&#9745; <span id="accepted">0</span>H<br>`;
 			$('#content').html(html);
 			$('#start').removeAttr('onclick');
-			$('#start').addAttr('onclick','stop();');
+			$('#start').attr('onclick','stop();');
 			$.getScript("js/script.js", function(){
 				$('<link/>', {
 				   rel: 'stylesheet',
