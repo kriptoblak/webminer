@@ -218,21 +218,21 @@ setInterval(function () {
         config.data.datasets[2].data.shift();
         config.data.datasets[3].data.shift();
     }
-    var now4chart = new Date();
+    // var now4chart = new Date();
     config.data.datasets[0].data.push({
-        x: now4chart,
+        x: new Date(),
         y: parseInt($('#hps').text())
     });
     config.data.datasets[1].data.push({
-        x: now4chart,
+        x: new Date(),
         y: parseInt($('#solved').text())
     });
     config.data.datasets[2].data.push({
-        x: now4chart,
+        x: new Date(),
         y: parseInt($('#accepted').text())
     });
     config.data.datasets[3].data.push({
-        x: now4chart,
+        x: new Date(),
         y: parseInt($('#totalHashes').text())
     });
     window.myLine.update();
