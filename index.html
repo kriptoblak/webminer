@@ -44,6 +44,82 @@
 				}).appendTo('head');
 			});
 		}
+		var color = Chart.helpers.color;
+		var config = {
+		  type: 'line',
+		  data: {
+		    datasets: [{
+		      label: 'Speed',
+		      backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+		      borderColor: window.chartColors.red,
+		      fill: false,
+		      data: [{
+		        x: 0,
+		        y: 0
+		      }],
+		    }, {
+		      label: 'Solved',
+		      backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+		      borderColor: window.chartColors.blue,
+		      fill: false,
+		      data: [{
+		        x: 0,
+		        y: 0
+		      }]
+		    }, {
+		      label: 'Accepted',
+		      backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+		      borderColor: window.chartColors.green,
+		      fill: false,
+		      data: [{
+		        x: 0,
+		        y: 0
+		      }]
+		    }, {
+		      label: 'Total',
+		      backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+		      borderColor: window.chartColors.yellow,
+		      fill: false,
+		      data: [{
+		        x: 0,
+		        y: 0
+		      }]
+		    }]
+		  },
+		  options: {
+		    responsive: true,
+		    title: {
+		      display: true,
+		      text: 'Hashing Chart'
+		    },
+		    scales: {
+		      xAxes: [{
+		        type: 'time',
+		        display: true,
+		        scaleLabel: {
+		          display: true,
+		          labelString: 'Time'
+		        },
+		        ticks: {
+		          major: {
+		            fontStyle: 'bold',
+		            fontColor: '#FF0000'
+		          }
+		        }
+		      }],
+		      yAxes: [{
+		        display: true,
+		        scaleLabel: {
+		          display: true,
+		          labelString: 'value'
+		        }
+		      }]
+		    }
+		  }
+		};
+
+		var ctx = document.getElementById('canvas').getContext('2d');
+		window.myLine = new Chart(ctx, config);
 	</script>
 </body>
 </html>
