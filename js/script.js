@@ -197,7 +197,7 @@ function on_workermsg(e) {
   if ((e.data) != "wakeup") totalhashes += 1;
 }
 // // // // // // // // // // // // // //
-$("#start").prop('disabled',true);
+// $("#start").prop('disabled',true);
 // $('#msgarea, #statsarea').show();
 
 startHashingWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
