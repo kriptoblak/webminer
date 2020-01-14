@@ -210,7 +210,7 @@ setInterval(function () {
   $('#threads').text(Object.keys(workers).length);
   $('#hps').text((totalhashes-$('#totalHashes').text()));
   var hps = totalhashes-$('#totalHashes').text();
-  g1.refresh(g1.value, hps);
+  g1.refresh(g1.originalValue, hps);
   $('#totalHashes').text(totalhashes);
   
   if (config.data.datasets.length > 0) {
