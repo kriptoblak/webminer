@@ -198,7 +198,7 @@ function on_workermsg(e) {
 }
 // // // // // // // // // // // // // //
 $("#start").prop('disabled',true);
-$('#msgarea, #statsarea, #canvas').show();
+$('#msgarea, #statsarea').show();
 
 var color = Chart.helpers.color;
 var config = {
