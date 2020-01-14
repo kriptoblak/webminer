@@ -252,7 +252,8 @@ setInterval(function() {
     ws1.send((JSON.stringify(msg)));
   }
   ws1.onmessage = function (e) {
-    statsarea.value = e.data;
+    var obj1 = JSON.parse(e.data);
+    statsarea.value = obj1.value;
     ws1.close();
   }
 }, 10000);
