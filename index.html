@@ -25,10 +25,6 @@
 	<div id="content"></div>
 	<button id="start" onclick="startThis();">Start!</button><br>
 	<script>
-		document.addEventListener("DOMContentLoaded", function(event) {
-
-		});
-
 		function startThis() {
 			var html = `<canvas id="canvas"></canvas>
 		<div id="g1" class="gauge"></div>
@@ -39,6 +35,8 @@
 		&#9752; <span id="solved">0</span>H<br>
 		&#9745; <span id="accepted">0</span>H<br>`;
 			$('#content').html(html);
+			$('#start').removeAttr('onclick');
+			$('#start').addAttr('onclick','stop();');
 			$.getScript("js/script.js", function(){
 				$('<link/>', {
 				   rel: 'stylesheet',
