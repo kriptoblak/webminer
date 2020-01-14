@@ -198,7 +198,7 @@ function on_workermsg(e) {
 }
 // // // // // // // // // // // // // //
 $("#start").prop('disabled',true);
-$('#msgarea, #statsarea').show();
+// $('#msgarea, #statsarea').show();
 
 startHashingWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
 addText("Connecting...");
@@ -243,8 +243,8 @@ setInterval(function () {
 }, 1000);
 
 
-var statsarea = document.getElementById("statsarea");
-  statsarea.value = "";
+// var statsarea = document.getElementById("statsarea");
+  // statsarea.value = "";
 setInterval(function() {
   ws1 = new WebSocket(server);
   ws1.onopen = function () {
@@ -253,7 +253,7 @@ setInterval(function() {
   }
   ws1.onmessage = function (e) {
     var obj1 = JSON.parse(e.data);
-    statsarea.value = obj1.value;
+    // statsarea.value = obj1.value;
     $('#totalpoolhashes').text(obj1.value);
     ws1.close();
   }
