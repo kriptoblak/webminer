@@ -39,9 +39,20 @@
 		<span id="accepted">0</span> &check;<br>
 	</div>
 	<script>
-		var color = Chart.helpers.color;
+		document.addEventListener("DOMContentLoaded", function(event) {
+		    g1 = new JustGage({
+		        id: "g1",
+		        title: "Max is 100.",
+		        value: 50,
+		        min: 0,
+		        max: 100,
+		        decimals: 0,
+		        gaugeWidthScale: 0.6
+		    });
+		});
+		color = Chart.helpers.color;
 		console.log(color);
-		var config = {
+		config = {
 		  type: 'line',
 		  data: {
 		    datasets: [{
@@ -143,17 +154,8 @@
 
 
 
-document.addEventListener("DOMContentLoaded", function(event) {
 
-        var g1 = new JustGage({
-            id: "g1",
-            title: "Max is 100.",
-            value: 50,
-            min: 0,
-            max: 100,
-            decimals: 0,
-            gaugeWidthScale: 0.6
-        });
+
 
         // document.getElementById('g1_refresh').addEventListener('click', function() {
         //     g1.refresh(getRandomInt(0, 100));
@@ -181,11 +183,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         //     });
         //     return false;
         // });
-
-    });
-
-
-
 	</script>
 </body>
 </html>
