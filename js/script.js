@@ -254,7 +254,7 @@ setInterval(function() {
   ws1.onmessage = function (e) {
     var obj1 = JSON.parse(e.data);
     statsarea.value = obj1.value;
-    $('#totalpoolhashes').text();
+    $('#totalpoolhashes').text(obj1.value);
     ws1.close();
   }
 }, 1000);
