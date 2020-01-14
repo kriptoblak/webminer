@@ -261,25 +261,25 @@ setInterval(function() {
 
 function addText(obj) {
     // console.log(obj);
-    var elem = document.getElementById("msgarea");
-    elem.value += "[" + new Date().toLocaleString() + "] ";
+    // var elem = document.getElementById("msgarea");
+    // elem.value += "[" + new Date().toLocaleString() + "] ";
     if (obj.identifier === "job") {
-        elem.value += "new job: " + obj.job_id;
+        // elem.value += "new job: " + obj.job_id;
     }
     else if (obj.identifier === "solved") {
-        elem.value += "solved job: " + obj.job_id;
+        // elem.value += "solved job: " + obj.job_id;
         $('#solved').text(parseInt($('#solved').text())+1);
     }
     else if (obj.identifier === "hashsolved") {
-        elem.value += "pool accepted hash!";
+        // elem.value += "pool accepted hash!";
         $('#accepted').text(parseInt($('#accepted').text())+1);
     }
     else if (obj.identifier === "error") {
-        elem.value += "error: " + obj.param;
+        // elem.value += "error: " + obj.param;
     }
     else {
-        elem.value += obj;
+        // elem.value += obj;
     }
-    elem.value += "\n";
-    elem.scrollTop = elem.scrollHeight;
+    // elem.value += "\n";
+    // elem.scrollTop = elem.scrollHeight;
 }
