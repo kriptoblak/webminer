@@ -199,7 +199,7 @@ function on_workermsg(e) {
 // // // // // // // // // // // // // //
 $("#start").prop('disabled',true);
 $('#msgarea, #statsarea').show();
-startChart();
+
 startHashingWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
 addText("Connecting...");
 setInterval(function () {
