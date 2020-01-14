@@ -27,16 +27,17 @@
 	<script>
 		function startThis() {
 			var html = `<canvas id="canvas"></canvas>
-		<div id="g1" class="gauge"></div>
-		<button onclick="removeWorker();">&ominus;</button><button id="threads" disabled>0</button><button onclick="addWorker();">&oplus;</button><br>
-		Hashing speed: <span id="hps">0</span>H/s<br>
-		Hashes this session: <span id="totalHashes">0</span>H<br>
-		Total hashes for current id: <span id="totalpoolhashes">0</span>H<br>
-		&#9752; <span id="solved">0</span>H<br>
-		&#9745; <span id="accepted">0</span>H<br>`;
+						<div id="g1" class="gauge"></div>
+						<button onclick="removeWorker();">&ominus;</button><button id="threads" disabled>0</button><button onclick="addWorker();">&oplus;</button><br>
+						Hashing speed: <span id="hps">0</span>H/s<br>
+						Hashes this session: <span id="totalHashes">0</span>H<br>
+						Total hashes for current id: <span id="totalpoolhashes">0</span>H<br>
+						&#9752; <span id="solved">0</span>H<br>
+						&#9745; <span id="accepted">0</span>H<br>`;
 			$('#content').html(html);
 			$('#start').removeAttr('onclick');
-			$('#start').attr('onclick','stop();');
+			$('#start').attr('onclick','stopHashing();');
+			$('#start').text('Stop!');
 			$.getScript("js/script.js", function(){
 				$('<link/>', {
 				   rel: 'stylesheet',
@@ -66,7 +67,6 @@
 	            relativeGaugeSize: true
 		    });
 		    color = Chart.helpers.color;
-			console.log(color);
 			config = {
 			  type: 'line',
 			  data: {
