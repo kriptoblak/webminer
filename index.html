@@ -34,7 +34,6 @@
 		<span id="totalHashes">0</span>H<br>
 		<span id="solved">0</span> &cool;<br>
 		<span id="accepted">0</span> &check;<br>
-
 	</div>
 	<script>
 		function startThis() {
@@ -117,8 +116,6 @@
                                 fontStyle: 'bold',
                                 fontColor: '#FF0000'
                             }
-                            // min:0
-                            // stepSize:1000
                         }
                     }],
                     yAxes: [{
@@ -129,14 +126,12 @@
                         },
                         ticks: {
                             min:0
-                            // stepSize:10
                         }
                     }]
                 }
             }
 		};
-
-		window.onload = function() {
+		function startChart() {
 			var ctx = document.getElementById('canvas').getContext('2d');
 			window.myLine = new Chart(ctx, config);
 		};
