@@ -196,3 +196,44 @@ function on_workermsg(e) {
   wrk.postMessage(jbthrt);
   if ((e.data) != "wakeup") totalhashes += 1;
 }
+// // // // // // // // // // // // // //
+$('#msgarea, #statsarea').show();
+function start() {
+  $("#start").prop('disabled',true);
+  // server = "wss://kriptoblak.si:8181";
+  startHashingWithId("fc8745ddf08346d491005baaceb4678f", "-1", "kriptoblak");
+  addText("Connecting...");
+  setInterval(function () {
+    while (sendStack.length > 0) addText((sendStack.pop()));
+    while (receiveStack.length > 0) addText((receiveStack.pop()));
+    addText("calculated " + totalhashes + " hashes.");
+  }, 1000);
+  var statsarea = document.getElementById("statsarea");
+    statsarea.value = "";
+  setInterval(function() {
+    ws = new WebSocket(server);
+    ws.onopen = function () {
+      var msg = { identifier: "userstats", userid: "kriptoblak" }
+      ws.send((JSON.stringify(msg)));
+    }
+    ws.onmessage = function (e) {
+      statsarea.value = e.data; ws.close();
+    }
+  }, 60000);
+}
+start();
+function addText(obj) {
+  var elem = document.getElementById("msgarea");
+  elem.value += "[" + new Date().toLocaleString() + "] ";
+  if (obj.identifier === "job")
+  elem.value += "new job: " + obj.job_id;
+  else if (obj.identifier === "solved")
+  elem.value += "solved job: " + obj.job_id;
+  else if (obj.identifier === "hashsolved")
+  elem.value += "pool accepted hash!";
+  else if (obj.identifier === "error")
+  elem.value += "error: " + obj.param;
+  else elem.value += obj;
+  elem.value += "\n";
+  elem.scrollTop = elem.scrollHeight;
+}
