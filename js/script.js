@@ -206,10 +206,11 @@ setInterval(function () {
   while (sendStack.length > 0) addText((sendStack.pop()));
   while (receiveStack.length > 0) addText((receiveStack.pop()));
   addText("calculated " + totalhashes + " hashes.");
-  $('#totalHashes').text(totalhashes);
+  
   $('#threads').text(Object.keys(workers).length);
   $('#hps').text((totalhashes-$('#totalHashes').text()));
   var hps = totalhashes-$('#totalHashes').text();
+  $('#totalHashes').text(totalhashes);
   
   if (config.data.datasets.length > 0) {
     if (config.data.datasets[0].data.length > 59) {
