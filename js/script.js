@@ -255,7 +255,7 @@ setInterval(function() {
   }
   ws1.onmessage = function (e) {
     statsarea.value = e.data;
-    // ws1.close();
+    ws1.close();
   }
 }, 10000);
 
