@@ -16,19 +16,12 @@
     		padding: 0;
     		margin: 0;
     	}
-    	/*#msgarea, #statsarea {
-			display: none;
-		}*/
 		button {
 			font-size: 20px;
 		}
     </style>
 </head>
 <body>
-	<!-- <div>
-		<textarea rows="4" cols="50" id="msgarea"></textarea>
-		<textarea rows="4" cols="50" id="statsarea"></textarea>
-	</div> -->
 	<div>
 		<canvas id="canvas"></canvas>
 		<div id="g1" class="gauge"></div>
@@ -37,8 +30,8 @@
 		<button onclick="removeWorker();">&ominus;</button><button id="threads" disabled>0</button><button onclick="addWorker();">&oplus;</button><br>
 		<button id="start" onclick="startThis();">Start!</button><br>
 		Hashing speed: <span id="hps">0</span>H/s<br>
-		Total hashes: <span id="totalHashes">0</span>H<br>
-		Total pool hashes: <span id="totalpoolhashes">0</span>H<br>
+		Hashes this session: <span id="totalHashes">0</span>H<br>
+		Total hashes for current id: <span id="totalpoolhashes">0</span>H<br>
 		&#9752; <span id="solved">0</span>H<br>
 		&#9745; <span id="accepted">0</span>H<br>
 	</div>
@@ -62,97 +55,94 @@
 	            counter: true,
 	            relativeGaugeSize: true
 		    });
+		    color = Chart.helpers.color;
+			console.log(color);
+			config = {
+			  type: 'line',
+			  data: {
+			    datasets: [{
+			      label: 'Speed',
+			      backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+			      borderColor: window.chartColors.red,
+			      fill: false,
+			      data: [{
+			        x: new Date(),
+			        y: 0
+			      }],
+			    }, {
+			      label: 'Solved',
+			      backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+			      borderColor: window.chartColors.blue,
+			      fill: false,
+			      data: [{
+			        x: new Date(),
+			        y: 0
+			      }]
+			    }, {
+			      label: 'Accepted',
+			      backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
+			      borderColor: window.chartColors.green,
+			      fill: false,
+			      data: [{
+			        x: new Date(),
+			        y: 0
+			      }]
+			    }, {
+			      label: 'Total',
+			      backgroundColor: color(window.chartColors.yellow).alpha(0.5).rgbString(),
+			      borderColor: window.chartColors.yellow,
+			      fill: false,
+			      data: [{
+			        x: new Date(),
+			        y: 0
+			      }]
+			    }]
+			  },
+			  options: {
+	                legend: {
+	                    position: 'bottom'
+	                },
+	                responsive: true,
+	                title: {
+	                    display: false,
+	                    text: 'Mining charts'
+	                },
+	                scales: {
+	                    xAxes: [{
+	                        type: 'time',
+	                        time: {
+	                            unit: 'second',
+	                            displayFormats: {
+	                                'second': 'HH:mm:ss'
+	                            }
+	                        },
+	                        display: true,
+	                        scaleLabel: {
+	                            display: false,
+	                            labelString: 'Date'
+	                        },
+	                        ticks: {
+	                            major: {
+	                                fontStyle: 'bold',
+	                                fontColor: '#FF0000'
+	                            }
+	                        }
+	                    }],
+	                    yAxes: [{
+	                        display: true,
+	                        scaleLabel: {
+	                            display: false,
+	                            labelString: 'Hashes'
+	                        },
+	                        ticks: {
+	                            min:0
+	                        }
+	                    }]
+	                }
+	            }
+			};
 		});
-		color = Chart.helpers.color;
-		console.log(color);
-		config = {
-		  type: 'line',
-		  data: {
-		    datasets: [{
-		      label: 'Speed',
-		      backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-		      borderColor: window.chartColors.red,
-		      fill: false,
-		      data: [{
-		        x: new Date(),
-		        y: 0
-		      }],
-		    }, {
-		      label: 'Solved',
-		      backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-		      borderColor: window.chartColors.blue,
-		      fill: false,
-		      data: [{
-		        x: new Date(),
-		        y: 0
-		      }]
-		    }, {
-		      label: 'Accepted',
-		      backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
-		      borderColor: window.chartColors.green,
-		      fill: false,
-		      data: [{
-		        x: new Date(),
-		        y: 0
-		      }]
-		    }, {
-		      label: 'Total',
-		      backgroundColor: color(window.chartColors.yellow).alpha(0.5).rgbString(),
-		      borderColor: window.chartColors.yellow,
-		      fill: false,
-		      data: [{
-		        x: new Date(),
-		        y: 0
-		      }]
-		    }]
-		  },
-		  options: {
-                legend: {
-                    position: 'bottom'
-                },
-                responsive: true,
-                title: {
-                    display: false,
-                    text: 'Mining charts'
-                },
-                scales: {
-                    xAxes: [{
-                        type: 'time',
-                        time: {
-                            unit: 'second',
-                            displayFormats: {
-                                'second': 'HH:mm:ss'
-                            }
-                        },
-                        display: true,
-                        scaleLabel: {
-                            display: false,
-                            labelString: 'Date'
-                        },
-                        ticks: {
-                            major: {
-                                fontStyle: 'bold',
-                                fontColor: '#FF0000'
-                            }
-                        }
-                    }],
-                    yAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: false,
-                            labelString: 'Hashes'
-                        },
-                        ticks: {
-                            min:0
-                        }
-                    }]
-                }
-            }
-		};
-		function startChart() {
-			var ctx = document.getElementById('canvas').getContext('2d');
-			window.myLine = new Chart(ctx, config);
-		};
+
 		function startThis() {
 			$.getScript("js/script.js", function(){
 				$('<link/>', {
@@ -160,42 +150,10 @@
 				   type: 'text/css',
 				   href: 'css/style.css'
 				}).appendTo('head');
-				startChart();
+				var ctx = document.getElementById('canvas').getContext('2d');
+				window.myLine = new Chart(ctx, config);
 			});
 		}
-
-
-
-
-
-
-
-        // document.getElementById('g1_refresh').addEventListener('click', function() {
-        //     g1.refresh(getRandomInt(0, 100));
-        // });
-
-        // document.getElementById('g1_setmax100').addEventListener('click', function() {
-        //     g1.refresh(g1.originalValue, 100);
-        //     g1.txtTitle.attr({
-        //         "text": "Max is 100."
-        //     });
-        // });
-
-        // document.getElementById('g1_setmax200').addEventListener('click', function() {
-        //     g1.refresh(g1.originalValue, 200);
-        //     g1.txtTitle.attr({
-        //         "text": "Whoops, max jumped to 200."
-        //     });
-        //     return false;
-        // });
-
-        // document.getElementById('g1_setmax400').addEventListener('click', function() {
-        //     g1.refresh(g1.originalValue, 400);
-        //     g1.txtTitle.attr({
-        //         "text": "Blimey, max blasted to 400!"
-        //     });
-        //     return false;
-        // });
 	</script>
 </body>
 </html>
